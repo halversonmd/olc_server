@@ -3,7 +3,7 @@
 var onSuccess = async function (token) {
   var subButton = document.getElementById('contactSubmit')
   var xhr = new XMLHttpRequest();
-  var url = "https://openlocation.codes/verify";
+  var url = "https://openlocation.codes/api/verify";
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
   var data = JSON.stringify({"token": token});
