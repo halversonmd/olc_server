@@ -1,6 +1,6 @@
 let OpenLocationCode = require('./openlocationcode.js')
 let gmaps = require('./gmaps.js')
-let api = require('../../src/api.js').default
+let api = require('../../src/api.js').default.exec
 
 class MapControl {
     constructor() {
