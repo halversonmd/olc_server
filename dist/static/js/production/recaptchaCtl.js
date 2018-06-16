@@ -18,7 +18,10 @@ var onSuccess = async function (token) {
     xhr.send(data);
   });
   if ( success ) {
+    window.ga('send', 'event', 'captcha', 'success')
     subButton.disabled = false
+  } else {
+    window.ga('send', 'event', 'captcha', 'failed')
   }
   return success
 }
