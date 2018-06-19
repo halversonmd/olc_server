@@ -6,6 +6,7 @@ class MapControl {
     constructor() {
       this.poly = new google.maps.Rectangle()
       this.marker = new google.maps.Marker()
+      this.overlay = undefined
       this.shapes = []
       this.grid = []
       this.clickedCodes = {}
@@ -16,6 +17,26 @@ class MapControl {
         8: {h: 220, w: 210},
         10: {h: 12, w: 15}
       }
+    }
+    disable () {
+      var bounds = this.globalMap.getBounds()
+      this.globalMap.set('gestureHandling', 'none')
+      this.globalMap.set('zoomControl', false)
+      this.overlay = new google.maps.Rectangle({
+        map: this.globalMap,
+        bounds: bounds,
+        strokeColor: '#000000',
+        strokeOpacity: 0.2,
+        strokeWeight: 1,
+        fillColor: '#000000',
+        fillOpacity: 0.5,
+        clickable: false
+      });
+    }
+    enable () {
+      this.globalMap.set('gestureHandling', 'cooperative')
+      this.globalMap.set('zoomControl', true)
+      this.overlay.setMap(null);
     }
     newMap(elemId) {
       var initMap = new google.maps.Map(document.getElementById(elemId), {
@@ -169,6 +190,9 @@ class MapControl {
         });
         this.shapes.push(poly)
       }
+      return new Promise((res,rej) => {
+        res()
+      })
     }
     async loadOlc(latLng, rad, size) {
       if (latLng == undefined) {
